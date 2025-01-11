@@ -1,0 +1,51 @@
+name: Example Workflow
+
+# Adding workflow_dispatch and pull_request triggers
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  GLOBAL_ENV_VAR: workflow-level-value
+
+permissions:
+  contents: read
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print environment variable in shell command
+        run: echo "Job1 environment variable: $GLOBAL_ENV_VAR"
+
+      - name: Use environment variable in an action
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.GLOBAL_ENV_VAR }}
+
+  job2:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      JOB2_ENV_VAR: job-level-value
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print environment variables
+        run: |
+          echo "Job2 global environment variable: $GLOBAL_ENV_VAR"
+          echo "Job2 specific environment variable: $JOB2_ENV_VAR"
+
+      - name: Use environment variable in a condition
+        if: ${{ env.GLOBAL_ENV_VAR == 'workflow-level-value' }}
+        run: echo "Condition met, GLOBAL_ENV_VAR is workflow-level-value"
