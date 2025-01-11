@@ -43,6 +43,7 @@ jobs:
       run: |
         echo "Job2 global environment variable: $GLOBAL_ENV_VAR"
         echo "Job2 specific environment variable: $JOB2_ENV_VAR"
+        echo "Job2 NEW_VAR = ${{ needs.job1.outputs.NEW_VAR }}"
 
     - name: Use environment variable in a condition
       if: ${{ env.GLOBAL_ENV_VAR == 'workflow-level-value' }}
