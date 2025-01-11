@@ -20,16 +20,9 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Print environment variable in shell command
-        run: echo "Job1 environment variable: $GLOBAL_ENV_VAR"
-
-      - name: Use environment variable in an action
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ env.GLOBAL_ENV_VAR }}
+        run: |
+          echo "Job1 environment variable: $GLOBAL_ENV_VAR"
 
   job2:
     runs-on: ubuntu-latest
