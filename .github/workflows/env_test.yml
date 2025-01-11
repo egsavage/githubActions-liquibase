@@ -25,6 +25,7 @@ jobs:
         echo "Job1 environment variable: $GLOBAL_ENV_VAR"
 
   job2:
+    needs: [job1]
     runs-on: ubuntu-latest
     permissions:
       contents: write
