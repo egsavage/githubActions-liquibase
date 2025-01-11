@@ -20,7 +20,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      NEW_VAR: ${{ steps.step1.output.NEW_VAR }}
+      NEW_VAR: ${{ steps.step1.outputs.NEW_VAR }}
     steps:
     - name: Print environment variable in shell command
       id: step1
