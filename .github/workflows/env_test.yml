@@ -20,9 +20,9 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Print environment variable in shell command
-        run: |
-          echo "Job1 environment variable: $GLOBAL_ENV_VAR"
+    - name: Print environment variable in shell command
+      run: |
+        echo "Job1 environment variable: $GLOBAL_ENV_VAR"
 
   job2:
     runs-on: ubuntu-latest
@@ -31,14 +31,14 @@ jobs:
     env:
       JOB2_ENV_VAR: job-level-value
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Print environment variables
-        run: |
-          echo "Job2 global environment variable: $GLOBAL_ENV_VAR"
-          echo "Job2 specific environment variable: $JOB2_ENV_VAR"
+    - name: Print environment variables
+      run: |
+        echo "Job2 global environment variable: $GLOBAL_ENV_VAR"
+        echo "Job2 specific environment variable: $JOB2_ENV_VAR"
 
-      - name: Use environment variable in a condition
-        if: ${{ env.GLOBAL_ENV_VAR == 'workflow-level-value' }}
-        run: echo "Condition met, GLOBAL_ENV_VAR is workflow-level-value"
+    - name: Use environment variable in a condition
+      if: ${{ env.GLOBAL_ENV_VAR == 'workflow-level-value' }}
+      run: echo "Condition met, GLOBAL_ENV_VAR is workflow-level-value"
