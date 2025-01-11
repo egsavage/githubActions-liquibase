@@ -19,10 +19,14 @@ permissions:
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      NEW_VAR: ${{ steps.step1.output.NEW_VAR }}
     steps:
     - name: Print environment variable in shell command
+      id: step1
       run: |
         echo "Job1 environment variable: $GLOBAL_ENV_VAR"
+        echo NEW_VAR=xyz >> $GITHUB_OUTPUT
 
   job2:
     needs: [job1]
